@@ -12,6 +12,8 @@ app.use(express.static('public'));
 app.use(routes);
 
 app.use((req, res, next) => {
+    console.error(err.stack);
+    console.log("Ocurrió un error en la aplicación:", err.message); // Agregamos este console.log
     res.status(404).send("Lo siento, no se encontró la página.");
 });
 
