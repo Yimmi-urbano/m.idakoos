@@ -14,7 +14,7 @@ app.use(routes);
 app.use((req, res, next) => {
     console.error(err.stack);
     console.log("Ocurrió un error en la aplicación:", err.message); // Agregamos este console.log
-    res.status(404).send("Lo siento, no se encontró la página.");
+    res.status(404).send("Lo siento, no se encontró la página.", err.message);
 });
 
 app.use((err, req, res, next) => {
