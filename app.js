@@ -11,15 +11,15 @@ app.use(express.static('public'));
 
 app.use(routes);
 
-app.use((req, res,err, next) => {
-    console.error(err.stack);
-    console.log("Ocurrió un error en la aplicación:", err.message); // Agregamos este console.log
-    res.status(404).send("Lo siento, no se encontró la página.", err.message);
+app.use((req, res, next) => {
+    const err = new Error("Not Found");
+    err.status = 404;
+    next(err);
 });
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Algo salió mal en el servidor.');
+    res.status(err.status || 500).send(err.message || 'Algo salió mal en el servidor.');
 });
 
 app.listen(PORT, () => {
